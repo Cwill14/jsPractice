@@ -201,7 +201,6 @@ function changeEnough3(change, amountDue) {
 // 	, 0) >= amountDue
 // }
 
-
 console.log(changeEnough3([25, 20, 5, 0], 4.25))
 console.log(changeEnough3([2, 100, 0, 0], 14.11))
 
