@@ -1,6 +1,6 @@
 //  Javascript Practice 
 
-//  Feb 8, 2022
+//                                                                                 2/8/2022
 
 /*
     A word is on the loose and now has tried to hide amongst a crowd of tall letters! Help write a function to detect what the word is, knowing the following rules:
@@ -40,7 +40,7 @@ const countTrue2 = arr => {
 
 countTrue2([false, false, true, true, false, false, false, true, true, true, true, false, true, true, false]) // 8
 
-// Feb 10, 2022
+//                                                                                2/10/2022
 
 /* 
 Try finding your ancestors and offspring with code.
@@ -139,7 +139,7 @@ const generation2 = (x, y) => {
 generation2(0, "m") // "me!"
 generation2(-2, "f") // granddaughter
 
-// 2/15/22
+//                                                                              2/15/22
 
 // Convenience Store
 
@@ -204,7 +204,7 @@ function changeEnough3(change, amountDue) {
 console.log(changeEnough3([25, 20, 5, 0], 4.25))
 console.log(changeEnough3([2, 100, 0, 0], 14.11))
 
-//  2/16/22
+//                                                                              2/16/22
 
 /* 
 Create a function that takes an array of numbers and return "Boom!" if the digit 7 appears in the array. Otherwise, return "there is no 7 in the array".
@@ -248,3 +248,51 @@ console.log(sevenBoom3([33, 68, 400, 5])) // no
 console.log(sevenBoom3([86, 48, 100, 66])) // no
 console.log(sevenBoom3([76, 55, 44, 32])) // boom
 console.log(sevenBoom3([35, 4, 9, 37])) // boom
+
+/*
+Create a function that determines whether a number is Oddish or Evenish. A number is Oddish if the sum of all of its digits is odd, and a number is Evenish if the sum of all of its digits is even. If a number is Oddish, return "Oddish". Otherwise, return "Evenish".
+
+For example, oddishOrEvenish(121) should return "Evenish", since 1 + 2 + 1 = 4. oddishOrEvenish(41) should return "Oddish", since 4 + 1 = 5.
+
+Examples
+oddishOrEvenish(43) ➞ "Oddish"
+// 4 + 3 = 7
+// 7 % 2 = 1
+
+oddishOrEvenish(373) ➞ "Oddish"
+// 3 + 7 + 3 = 13
+// 13 % 2 = 1
+
+oddishOrEvenish(4433) ➞ "Evenish"
+// 4 + 4 + 3 + 3 = 14
+// 14 % 2 = 0
+*/
+
+function oddishOrEvenish(num) {
+	let total = 0
+	let arr = num.toString().split("")
+	arr.map(value => {
+		let int = parseInt(value)
+		total += int
+	})
+	return total % 2 ? "Oddish" : "Evenish"
+}
+
+console.log(oddishOrEvenish(43), "Oddish")
+console.log(oddishOrEvenish(373), "Oddish")
+console.log(oddishOrEvenish(55551), "Oddish")
+console.log(oddishOrEvenish(4433), "Evenish")
+console.log(oddishOrEvenish(11), "Evenish")
+console.log(oddishOrEvenish(211112), "Evenish")
+
+const oddishOrEvenish2 = num => {
+	let arr = Array.from(num.toString()).map(Number)
+	return arr.reduce((total, value) => total + value) & 1 ? "Oddish" : "Evenish"
+}
+
+console.log(oddishOrEvenish2(43), "Oddish")
+console.log(oddishOrEvenish2(373), "Oddish")
+console.log(oddishOrEvenish2(55551), "Oddish")
+console.log(oddishOrEvenish2(4433), "Evenish")
+console.log(oddishOrEvenish2(11), "Evenish")
+console.log(oddishOrEvenish2(211112), "Evenish")
