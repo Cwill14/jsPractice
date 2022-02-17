@@ -204,4 +204,47 @@ function changeEnough3(change, amountDue) {
 console.log(changeEnough3([25, 20, 5, 0], 4.25))
 console.log(changeEnough3([2, 100, 0, 0], 14.11))
 
-//
+//  2/16/22
+
+/* 
+Create a function that takes an array of numbers and return "Boom!" if the digit 7 appears in the array. Otherwise, return "there is no 7 in the array".
+
+Examples
+sevenBoom([1, 2, 3, 4, 5, 6, 7]) ➞ "Boom!"
+// 7 contains the number seven.
+
+sevenBoom([8, 6, 33, 100]) ➞ "there is no 7 in the array"
+// None of the items contain 7 within them.
+
+sevenBoom([2, 55, 60, 97, 86]) ➞ "Boom!"
+// 97 contains the number seven.
+*/
+
+function sevenBoom(arr) {
+	let newArr = arr.join("").split("")
+	return newArr.includes('7') ? "Boom!" : "there is no 7 in the array"
+}
+
+console.log(sevenBoom([2, 6, 7, 9, 3])) // boom
+console.log(sevenBoom([33, 68, 400, 5])) // no
+console.log(sevenBoom([86, 48, 100, 66])) // no
+console.log(sevenBoom([76, 55, 44, 32])) // boom
+console.log(sevenBoom([35, 4, 9, 37])) // boom
+
+function sevenBoom2(arr) {
+	return /7/.test(arr) ? "Boom!" : "there is no 7 in the array"
+}
+
+console.log(sevenBoom2([2, 6, 7, 9, 3])) // boom
+console.log(sevenBoom2([33, 68, 400, 5])) // no
+console.log(sevenBoom2([86, 48, 100, 66])) // no
+console.log(sevenBoom2([76, 55, 44, 32])) // boom
+console.log(sevenBoom2([35, 4, 9, 37])) // boom
+
+const sevenBoom3 = arr => /7/.test(arr) ? "Boom!" : "there is no 7 in the array"
+
+console.log(sevenBoom3([2, 6, 7, 9, 3])) // boom
+console.log(sevenBoom3([33, 68, 400, 5])) // no
+console.log(sevenBoom3([86, 48, 100, 66])) // no
+console.log(sevenBoom3([76, 55, 44, 32])) // boom
+console.log(sevenBoom3([35, 4, 9, 37])) // boom
