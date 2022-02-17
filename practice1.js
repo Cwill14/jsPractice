@@ -296,3 +296,4 @@ console.log(oddishOrEvenish2(55551), "Oddish")
 console.log(oddishOrEvenish2(4433), "Evenish")
 console.log(oddishOrEvenish2(11), "Evenish")
 console.log(oddishOrEvenish2(211112), "Evenish")
+
