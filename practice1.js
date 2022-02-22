@@ -297,3 +297,41 @@ console.log(oddishOrEvenish2(4433), "Evenish")
 console.log(oddishOrEvenish2(11), "Evenish")
 console.log(oddishOrEvenish2(211112), "Evenish")
 
+//                                                      2/21/22
+
+/*
+When coloring a striped pattern, you may start by coloring each square sequentially, meaning you spend time needing to switch coloring pencils.
+
+Create a function where given an array of colors cols, return how long it takes to color the whole pattern. Note the following times:
+
+It takes 1 second to switch between pencils.
+It takes 2 seconds to color a square. 
+
+color_pattern_times(["Red", "Blue", "Red", "Blue", "Red"]) ➞ 14
+
+// There are 5 colors so it takes 2 seconds to color each one (2 x 5 = 10).
+// You need to switch the pencils 4 times and it takes 1 second to switch (1 x 4 = 4).
+// 10 + 4 = 14
+*/
+
+
+const colorPatternTimes = arr => {
+	// loop thru colors
+		// determine how many switches
+			// only need to switch if diff color than prev
+		// num of switches + number of squares colored (items in arr) * 2
+	let switches = 0
+	let color = arr[0]
+	for (let i = 1; i < arr.length; i++) {
+		if (arr[i] !== color) {
+			switches++
+			color = arr[i]
+		}
+	}
+	return (arr.length * 2) + switches
+}
+
+
+console.log(colorPatternTimes(["Blue"])) // 2
+console.log(colorPatternTimes(["Red", "Yellow", "Green", "Blue"])) // 11
+console.log(colorPatternTimes(["Blue", "Blue", "Blue", "Red", "Red", "Red"])) // 13
