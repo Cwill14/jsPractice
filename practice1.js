@@ -443,6 +443,18 @@ class StackCalc {
 // ---------------------
 
 const run = str => {
+	
+	const popTwo = arr => {
+		let ops = []
+		let i = 0
+		while (i < 2) {
+			ops.push(parseInt(arr.pop()))
+			i++
+		}
+		return ops
+	}
+
+	
 	const stack = str.split(" ");
 	let operator = stack.pop();
 	switch (operator) {
@@ -453,7 +465,13 @@ const run = str => {
 			let operand2 = stack.pop() * 1
 			stack.push(operand1 + operand2)
 			console.log(stack)
+		case "-":
+			let tempArr = popTwo(stack)
+			console.log(tempArr[0] - tempArr[1])
 	}
 }
+
+
+run("5 6 -")
 
 run("5 6 +")
