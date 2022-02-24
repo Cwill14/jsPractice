@@ -444,34 +444,80 @@ class StackCalc {
 
 const run = str => {
 	
-	const popTwo = arr => {
-		let ops = []
-		let i = 0
-		while (i < 2) {
-			ops.push(parseInt(arr.pop()))
-			i++
-		}
-		return ops
-	}
+	// const popTwo = arr => {
+	// 	let ops = []
+	// 	let i = 0
+	// 	while (i < 2) {
+	// 		ops.push(parseInt(arr.pop()))
+	// 		i++
+	// 	}
+	// 	return ops
+	// }
 
 	
 	const stack = str.split(" ");
+	console.log(stack, " stack before")
 	let operator = stack.pop();
+	switch (operator) {
+		case /[0-9]/:
+			return stack.push(operator)
+			break
+	}
+
+	// console.log(operator)
+	// if ()
+	
+	// const math = () => {
+	// 	let operands = stack.splice(-2, 2)
+	// 	let opUpper = parseInt(operands[1])
+	// 	let opLower = parseInt(operands[0])
+	// 	console.log(opUpper, "in math")
+	// 	return operands, opUpper, opLower
+	// }
+	let operands = stack.splice(-2, 2)
+	let opUpper = parseInt(operands[1])
+	let opLower = parseInt(operands[0])
+	// console.log(opUpper, opLower)
+	
 	switch (operator) {
 		case "":
 			return 0
 		case "+":
-			let operand1 = stack.pop() * 1
-			let operand2 = stack.pop() * 1
-			stack.push(operand1 + operand2)
-			console.log(stack)
+			// console.log(math(), " math runs");
+			// console.log(opUpper, " opUpper in switch")
+			// let operands = stack.splice(-2, 2)
+			// let opUpper = parseInt(operands[1])
+			// let opLower = parseInt(operands[0])
+			stack.push((opUpper + opLower).toString());
+			break;
 		case "-":
-			let tempArr = popTwo(stack)
-			console.log(tempArr[0] - tempArr[1])
+			// math();
+			stack.push((opUpper - opLower).toString());
+			break;
+		case "*":
+			// math();
+			stack.push((opUpper * opLower).toString());
+			break;
+		case "/":
+			// math();
+			stack.push((opUpper / opLower).toString());
+			break;
+		case "DUP":
+			stack.push(opLower.toString(), opUpper.toString(), opUpper.toString());
+			break;
+		case "POP":
+			stack.push(opLower.toString())
+		// default
 	}
+	return stack
 }
 
 
-run("5 6 -")
-
-run("5 6 +")
+console.log(run(""))
+console.log(run("1 5 6 +"))
+console.log(run("2 5 6 -"))
+console.log(run("3 5 6 *"))
+console.log(run("4 5 6 /"))
+console.log(run("5 5 DUP"))
+console.log(run("6 5 POP"))
+console.log(run("12"))
