@@ -60,3 +60,100 @@ console.log(wordRank("Quick brown fox")) // brown
 console.log(wordRank("Nancy is very pretty")) // pretty
 console.log(wordRank("Check back tomorrow, man")) // tomorrow
 console.log(wordRank("Wednesday is hump day.")) // Wednesday
+
+// 															3/3/22
+
+/*
+Return the Most Expensive Piece of Jewellery
+
+You go to a jewelry shop and try to find the most expensive piece of jewelry. You write down the name of each piece of jewelry and its price.
+
+Create a function that gets the name of the piece of jewelry with the highest price and returns "The most expensive one is the {name of jewelry piece}".
+
+Examples
+mostExpensive ({
+  "Diamond Earrings": 980,
+  "Gold Watch": 250,
+  "Pearl Necklace": 4650
+}) ➞  "The most expensive one is the Pearl Necklace"
+
+mostExpensive({
+  "Silver Bracelet": 280,
+  "Gemstone Earrings": 180,
+  "Diamond Ring": 3500
+}) ➞ "The most expensive one is the Diamond Ring"
+Notes
+There will always be at least one item in the object.
+There will always be only one highest priced item (i.e. there will not be two items with the joint highest value).
+
+*/
+
+// Math.max.apply(null, [1, 2, 3]) is equivalent to Math.max(1, 2, 3), or Math.max(...arr) //
+
+// VERSION 1
+
+function mostExpensive(obj) {
+	// console.log("obj =", obj)
+	let vArr = Object.values(obj)
+	// console.log("vArr =", vArr)
+	let kArr = Object.keys(obj)
+	// console.log("kArr =", kArr)
+	let highestPrice = 0
+	// console.log("highestPrice before =", highestPrice)
+	let index = 0
+	for (let i = 0; i < vArr.length; i++) {
+		if (vArr[i] > highestPrice) highestPrice = vArr[i]
+		index = i
+	}
+	// console.log("highestPrice after =", highestPrice)
+	// console.log("index =", index)
+	return `The most expensive one is the ${kArr[index]}`
+}
+
+console.log(mostExpensive({
+	"Diamond Earrings": 980,
+	"Gold Watch": 250,
+	"Pearl Necklace": 4650
+  })) // "The most expensive one is the Pearl Necklace"
+  
+  console.log(mostExpensive({
+	"Silver Bracelet": 280,
+	"Gemstone Earrings": 180,
+	"Diamond Ring": 3500
+  })) // The most expensive one is the Diamond Ring"
+
+// 		VERSION 2
+
+function mostExpensive2(obj) {
+	let tuples = Object.entries(obj)
+	let highestPrice = 0
+	let highestPriceBook = ""
+	// console.log("tuples =", tuples)
+
+	// for (let tuple in obj) {
+	// 	if (obj[tuple] > highestPrice) {
+	// 		highestPrice = obj[tuple]
+	// 		highestPriceBook = tuple
+	// 	}
+	// }
+	// or
+	for (const [book, price] of tuples) {
+		if (price > highestPrice) {
+			highestPrice = price
+			highestPriceBook = book
+		}
+	}
+	return `The most expensive one is the ${highestPriceBook}`
+}
+
+console.log(mostExpensive2({
+  "Diamond Earrings": 980,
+  "Gold Watch": 250,
+  "Pearl Necklace": 4650
+})) // "The most expensive one is the Pearl Necklace"
+
+console.log(mostExpensive2({
+  "Silver Bracelet": 280,
+  "Gemstone Earrings": 180,
+  "Diamond Ring": 3500
+})) // The most expensive one is the Diamond Ring"
