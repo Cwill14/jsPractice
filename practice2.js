@@ -157,3 +157,61 @@ console.log(mostExpensive2({
   "Gemstone Earrings": 180,
   "Diamond Ring": 3500
 })) // The most expensive one is the Diamond Ring"
+
+
+// 													3/8/22
+
+/*
+Create a function that takes an array of objects (groceries) which calculates the total price and returns it as a number.
+A grocery object has a product, a quantity and a price, for example:
+
+{
+  "product": "Milk",
+  "quantity": 1,
+  "price": 1.50
+}
+
+1 bottle of milk & 1 box of cereals:
+getTotalPrice([
+  { product: "Milk", quantity: 1, price: 1.50 },
+  { product: "Cereals", quantity: 1, price: 2.50 }
+]) ➞ 4
+*/
+
+//	V1
+function getTotalPrice(groceries) {
+	let total = 0
+	groceries.map(item => {
+		total = total + (item.price * item.quantity)
+	})
+	let t = Number.parseFloat(total.toFixed(2))
+	return t
+}
+
+//	V2
+const getTotalPrice = groceries => {
+	let init = 0
+	let total = groceries.reduce((prevValue, currValue) => {
+		currValue = currValue.price * currValue.quantity
+		return prevValue + currValue
+	}, init)
+	return Number.parseFloat(total.toFixed(2))
+}
+
+console.log(getTotalPrice([
+  { product: "Milk", quantity: 1, price: 1.50 },
+  { product: "Cereals", quantity: 1, price: 2.50 }
+])) // 4
+console.log(getTotalPrice([
+  { product: "Milk", quantity: 3, price: 1.50 }
+])) // 4.5
+console.log(getTotalPrice([
+  { product: "Milk", quantity: 1, price: 1.50 },
+  { product: "Eggs", quantity: 12, price: 0.10 },
+  { product: "Bread", quantity: 2, price: 1.60 },
+  { product: "Cheese", quantity: 1, price: 4.50 }
+])) // 10.4
+console.log(getTotalPrice([
+  { product: "Chocolate", quantity: 1, price: 0.10 },
+  { product: "Lollipop", quantity: 1, price: 0.20 }
+])) // 0.3
