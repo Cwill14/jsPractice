@@ -215,3 +215,54 @@ console.log(getTotalPrice([
   { product: "Chocolate", quantity: 1, price: 0.10 },
   { product: "Lollipop", quantity: 1, price: 0.20 }
 ])) // 0.3
+
+//											3/9/22
+
+/*
+Check If the Brick Fits through the Hole
+Write the function that takes three dimensions of a brick: height(a), width(b) and depth(c) and returns true if this brick can fit into a hole with the width(w) and height(h).
+
+doesBrickFit(1, 1, 1, 1, 1) ➞ true
+
+doesBrickFit(1, 2, 1, 1, 1) ➞ true
+
+doesBrickFit(1, 2, 2, 1, 1) ➞ false
+
+You can turn the brick with any side towards the hole.
+We assume that the brick fits if its sizes equal the ones of the hole (i.e. brick size should be less than or equal to the size of the hole, not strictly less).
+You can't put a brick in at a non-orthogonal angle.
+*/
+
+// (a,b,c) -- dimensions of the brick
+// (w,h) -- dimensions of the hole
+function doesBrickFit(a,b,c, w,h) {
+
+	if ((a <= w && b <= h) || (b <= w && a <= h)) {
+		console.log("a,b or b,a work")
+	}
+	if ((a <= w && c <= h) || (c <= w && a <= h)) {
+		console.log("a,c or c,a work")
+	}
+	if ((b <= w && c <= h) || (c <= w && b <= h)) {
+		console.log("b,c or c,b work")
+	}
+
+	return (a <= w && b <= h) || (b <= w && a <= h) || (a <= w && c <= h) || (c <= w && a <= h) || (b <= w && c <= h) || (c <= w && b <= h)
+}
+
+
+console.log(doesBrickFit(1, 1, 1, 1, 1), "true") // true
+console.log("-----------")
+console.log(doesBrickFit(1, 2, 1, 1, 1), "true") // true
+console.log("-----------")
+console.log(doesBrickFit(1, 2, 2, 1, 1), "false") // false
+console.log("-----------")
+console.log(doesBrickFit(1, 2, 2, 2, 1), "true") // true
+console.log("-----------")
+console.log(doesBrickFit(1, 2, 2, 2, 2), "true") // true
+console.log("-----------")
+console.log(doesBrickFit(3, 2, 2, 2, 2), "true") // true
+console.log("-----------")
+console.log(doesBrickFit(3, 4, 3, 6, 2), "false") // false
+console.log("-----------")
+console.log(doesBrickFit(3, 4, 3, 4, 3), "true") // true
