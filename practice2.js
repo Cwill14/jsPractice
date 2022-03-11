@@ -266,3 +266,64 @@ console.log("-----------")
 console.log(doesBrickFit(3, 4, 3, 6, 2), "false") // false
 console.log("-----------")
 console.log(doesBrickFit(3, 4, 3, 4, 3), "true") // true
+
+// 								3/11/22
+
+/*
+Positive Dominant
+
+An array is positive dominant if it contains strictly more unique positive values than unique negative values. 
+Write a function that returns true if an array is positive dominant.
+0 counts as neither a positive nor a negative value.
+
+Examples
+
+isPositiveDominant([1, 1, 1, 1, -3, -4]) ➞ false
+// There is only 1 unique positive value (1).
+// There are 2 unique negative values (-3, -4).
+
+isPositiveDominant([5, 99, 832, -3, -4]) ➞ true
+
+isPositiveDominant([5, 0]) ➞ true
+
+isPositiveDominant([0, -4, -1]) ➞ false
+*/
+
+function isPositiveDominant(a) {
+	let p = 0
+	let n = 0
+	const set = []
+	a.map(v => {
+		if(v > 0 && !set.includes(v)) {
+			p++
+			set.push(v)
+		} else if (v < 0 && !set.includes(v)) {
+			n++
+			set.push(v)
+		} 
+	})
+	return p > n
+	? true
+	: false
+}
+
+const isPositiveDominant2 = a => {
+	const set = new Set(a)
+	let p = 0, n = 0
+	for (let i of set) {
+		if (Math.sign(i) > 0) p++
+		else if (Math.sign(i) < 0) n++
+	}
+	return p > n
+}
+
+
+console.log(isPositiveDominant2([1, 1, 1, 1, -3, -4]), "false")// false
+
+console.log(isPositiveDominant2([5, 99, 832, -3, -4]), "true") // true
+
+console.log(isPositiveDominant2([5, 0]), "true") // true
+
+console.log(isPositiveDominant2([0, -4, -1]), "false")// false
+
+console.log(isPositiveDominant2([2, -2]), "false") // false
