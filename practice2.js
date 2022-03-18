@@ -361,19 +361,56 @@ const products = [
 
 function vendingMachine(products, money, productNumber) {
 	// determine if valid #
+	let product = {}
+	let change = []
+	let valid = false
+	products.map(p => {
+		if (p.number == productNumber) {
+			product = p
+			valid = true
+		}
+	})
+	if (!valid) return "Enter a valid product number"
+	
 	// compare price w/ money
+	if (money < product.price) {
+		return "Not enough money for this product"
+	}
+	
 	// if enough, subract price. add remainder as coin values to obj
+	let remainder = money - product.price
+	while (remainder > 0) {
+		if (remainder > 500) {
+			change.push(500)
+			remainder = remainder - 500
+		} else if (remainder >= 200) {
+			change.push(200)
+			remainder = remainder - 200
+		} else if (remainder >= 100) {
+			change.push(100)
+			remainder = remainder - 100
+		} else if (remainder >= 50) {
+			change.push(50)
+			remainder = remainder - 50
+		} else if (remainder >= 20) {
+			change.push(20)
+			remainder = remainder - 20
+		} else if (remainder >= 10) {
+			change.push(10)
+			remainder = remainder - 10
+		}
+	}
+
 	// add  product name to obj and return
+	return { "product": product.name, "change": change }
 }
 
-console.log(vendingMachine(products, 200, 7), "{ product: 'Crackers', change: [ 50, 20, 10 ] }") // { product: "Crackers", change: [ 50, 20, 10 ] }
-
-console.log(vendingMachine(products, 500, 0), "Enter a valid product number") // "Enter a valid product number"
-
-console.log(vendingMachine(products, 90, 1), "Not enough money for this product") // "Not enough money for this product"
-
-console.log(vendingMachine(products, 200, 7), "{ product: 'Crackers', change: [ 50, 20, 10 ] }") // { product: "Crackers", change: [ 50, 20, 10 ] }
-
-console.log(vendingMachine(products, 500, 0), "Enter a valid product number") // "Enter a valid product number"
-
-console.log(vendingMachine(products, 90, 1), "Not enough money for this product") // "Not enough money for this product"
+console.log(vendingMachine(products, 200, 7), "? { product: 'Crackers', change: [ 50, 20, 10 ] }") // { product: "Crackers", change: [ 50, 20, 10 ] }
+console.log("---------------------------------------")
+console.log(vendingMachine(products, 500, 0), "? Enter a valid product number") // "Enter a valid product number"
+console.log("---------------------------------------")
+console.log(vendingMachine(products, 90, 1), "? Not enough money for this product") // "Not enough money for this product"
+console.log("---------------------------------------")
+console.log(vendingMachine(products, 500, 8), "? { product: 'Potato chips', change: [ 200, 50, 20, 10 ] }") // { product: 'Potato chips', change: [ 200, 50, 20, 10 ] }
+console.log("---------------------------------------")
+console.log(vendingMachine(products, 250, 4), "? { product: 'Cookies', change: [] }") // { product: 'Cookies', change: [] }
