@@ -125,25 +125,29 @@ console.log(mostExpensive({
 // 		VERSION 2
 
 function mostExpensive2(obj) {
+	// declare variables, enter each obj as tuple in array
 	let tuples = Object.entries(obj)
 	let highestPrice = 0
-	let highestPriceBook = ""
+	let highestPriceItem = ""
 	// console.log("tuples =", tuples)
+
+	// compare each price to highest price. If higher, update highest price & item
 
 	// for (let tuple in obj) {
 	// 	if (obj[tuple] > highestPrice) {
 	// 		highestPrice = obj[tuple]
-	// 		highestPriceBook = tuple
+	// 		highestPriceItem = tuple
 	// 	}
 	// }
+
 	// or
-	for (const [book, price] of tuples) {
+	for (const [item, price] of tuples) {
 		if (price > highestPrice) {
 			highestPrice = price
-			highestPriceBook = book
+			highestPriceItem = item
 		}
 	}
-	return `The most expensive one is the ${highestPriceBook}`
+	return `The most expensive one is the ${highestPriceItem}`
 }
 
 console.log(mostExpensive2({
@@ -181,15 +185,17 @@ getTotalPrice([
 //	V1
 function getTotalPrice(groceries) {
 	let total = 0
+	// add each price to running total
 	groceries.map(item => {
 		total = total + (item.price * item.quantity)
 	})
+	// format number to 2 decimal places
 	let t = Number.parseFloat(total.toFixed(2))
 	return t
 }
 
 //	V2
-const getTotalPrice = groceries => {
+const getTotalPrice2 = groceries => {
 	let init = 0
 	let total = groceries.reduce((prevValue, currValue) => {
 		currValue = currValue.price * currValue.quantity
@@ -236,7 +242,8 @@ You can't put a brick in at a non-orthogonal angle.
 // (a,b,c) -- dimensions of the brick
 // (w,h) -- dimensions of the hole
 function doesBrickFit(a,b,c, w,h) {
-
+	// console logs to help explain
+	// check all different possible dimension combinations to see if they are <= hole
 	if ((a <= w && b <= h) || (b <= w && a <= h)) {
 		console.log("a,b or b,a work")
 	}
@@ -290,9 +297,11 @@ isPositiveDominant([0, -4, -1]) ➞ false
 */
 
 function isPositiveDominant(a) {
+	// declare variables
 	let p = 0
 	let n = 0
 	const set = []
+	// go thru array, if unique value, add to respective running counters
 	a.map(v => {
 		if(v > 0 && !set.includes(v)) {
 			p++
@@ -302,6 +311,7 @@ function isPositiveDominant(a) {
 			set.push(v)
 		} 
 	})
+	// returnn if positive is higher #
 	return p > n
 	? true
 	: false
@@ -360,10 +370,11 @@ const products = [
 ]
 
 function vendingMachine(products, money, productNumber) {
-	// determine if valid #
+	// init variables
 	let product = {}
 	let change = []
 	let valid = false
+	// determine if valid #
 	products.map(p => {
 		if (p.number == productNumber) {
 			product = p
@@ -414,3 +425,54 @@ console.log("---------------------------------------")
 console.log(vendingMachine(products, 500, 8), "? { product: 'Potato chips', change: [ 200, 50, 20, 10 ] }") // { product: 'Potato chips', change: [ 200, 50, 20, 10 ] }
 console.log("---------------------------------------")
 console.log(vendingMachine(products, 250, 4), "? { product: 'Cookies', change: [] }") // { product: 'Cookies', change: [] }
+
+//										3/19/22
+
+/*									Headline Hash Tags
+Write a function that retrieves the top 3 longest words of a newspaper headline and transforms them into hashtags. 
+If multiple words tie for the same length, retrieve the word that occurs first.
+If the title is less than 3 words, just order the words in the title by length in descending order (see example #4).
+Punctuation does not count towards a word's length.
+
+Examples
+getHashTags("How the Avocado Became the Fruit of the Global Trade")
+➞ ["#avocado", "#became", "#global"]
+
+getHashTags("Why You Will Probably Pay More for Your Christmas Tree This Year")
+➞ ["#christmas", "#probably", "#will"]
+
+getHashTags("Hey Parents, Surprise, Fruit Juice Is Not Fruit")
+➞ ["#surprise", "#parents", "#fruit"]
+
+getHashTags("Visualizing Science")
+➞ ["#visualizing", "#science"]
+*/
+
+function getHashTags(str) {
+	// split headline into individual words
+	const words = str.split(" ")
+	console.log("words =", words)
+	// for each word, turn all characters to lower case, filter out non-letter characters & add hashes
+	let cWords = words.map(w => {
+		return `#${w.toLowerCase().split("").filter(c => /[a-z]/ig.test(c)).join("")}`
+	})
+	console.log("cWords =", cWords)
+	// sort words by length
+	let sWords = cWords.sort((a,b) => b.length - a.length)
+	console.log("sWords =", sWords)
+	// return first 3 words
+	return sWords.slice(0, 3)
+}
+
+
+console.log(getHashTags("How the Avocado Became the Fruit of the Global Trade"))
+// ["#avocado", "#became", "#global"]
+console.log("---------------------------------------------")
+console.log(getHashTags("Why You Will Probably Pay More for Your Christmas Tree This Year"))
+// ["#christmas", "#probably", "#will"]
+console.log("---------------------------------------------")
+console.log(getHashTags("Hey Parents, Surprise, Fruit Juice Is Not Fruit"))
+// ["#surprise", "#parents", "#fruit"]
+console.log("---------------------------------------------")
+console.log(getHashTags("Visualizing Science"))
+// ["#visualizing", "#science"]
