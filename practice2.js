@@ -476,3 +476,125 @@ console.log(getHashTags("Hey Parents, Surprise, Fruit Juice Is Not Fruit"))
 console.log("---------------------------------------------")
 console.log(getHashTags("Visualizing Science"))
 // ["#visualizing", "#science"]
+
+
+//														3/22/22
+
+
+/*									Nearest Vowel
+Given a letter, created a function which returns the nearest vowel to the letter. If two vowels are equidistant to the given letter, return the earlier vowel.
+
+Examples
+nearestVowel("b") ➞ "a"
+
+nearestVowel("s") ➞ "u"
+
+nearestVowel("c") ➞ "a"
+
+nearestVowel("i") ➞ "i"
+Notes
+All letters will be given in lowercase.
+There will be no alphabet wrapping involved, meaning the closest vowel to "z" should return "u", not "a".
+*/
+
+function nearestVowel(s) {
+	const vowels = ["a", "e", "i", "o", "u"]
+	const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+	if (vowels.includes(s)) return s
+	else {
+		let fCount = 0;
+		let bCount = 0;
+		let sIndex = alphabet.indexOf(s)
+		let fVowel = "0"
+		let bVowel = "0"
+		console.log(s, sIndex, "start here")
+		console.log("-------")
+		// forwards loop
+		for (let i = sIndex + 1; i < alphabet.length; i++) {
+			if (vowels.includes(alphabet[i])) {
+				fVowel = alphabet[i]
+				break
+			}
+			fCount++
+			console.log("f =", alphabet[i], i, fCount)
+		}
+		// backwards loop
+		for (let i = sIndex -1; i > -1; i--) {
+			if (vowels.includes(alphabet[i])) {
+				bVowel = alphabet[i]
+				break
+			}
+			bCount++
+			console.log("b =", alphabet[i], i, bCount)
+		}
+		console.log("fCount =", fCount)
+		console.log("bCount =", bCount)
+		console.log("fVowel =", fVowel)
+		console.log("bVowel =", bVowel)
+		console.log("-------")
+		return fCount >= bCount
+			? bVowel
+			:	fVowel 
+	}
+}
+console.log(nearestVowel("b"), "<- should be a") // "a"
+console.log("==================")
+console.log(nearestVowel("s"), "<- should be u") // "u"
+console.log("==================")
+console.log(nearestVowel("c"), "<- should be a") // "a"
+console.log("==================")
+console.log(nearestVowel("i"), "<- should be i") // "i"
+console.log("==================")
+console.log(nearestVowel("f"), "<- should be e") // "e"
+console.log("==================")
+console.log(nearestVowel("r"), "<- should be o") // "o"
+
+				
+/*
+												Crack the Code
+This is a reverse-coding challenge. Create a function that outputs the correct array from the input. Use the following examples to crack the code.
+
+Examples
+decode("hello") ➞ [5, 2, 9, 9, 3]
+
+decode("wonderful") ➞ [11, 3, 2, 1, 2, 6, 3, 9, 9]
+
+decode("something challenging") ➞ [7, 3, 10, 2, 8, 5, 6, 2, 4, 5, 18, 5, 16, 9, 9, 2, 2, 4, 6, 2, 4]
+*/
+
+function decode(str) {
+	const code = {
+		"h": 5,
+		"e": 2,
+		"l": 9,
+		"o": 3,
+		"w": 11,
+		"n": 2,
+		"d": 1,
+		"r": 6,
+		"f": 3,
+		"u": 9,
+		"s": 7,
+		"m": 10,
+		"t": 8,
+		"i": 6,
+		"g": 4,
+		" ": 5,
+		"c": 18,
+		"a": 16
+	}
+	let nArr = []
+	str.split("").map(c => {
+		nArr.push(code[c])
+		// console.log("c =", c)
+	})
+	return nArr
+}
+console.log("hello")
+console.log(decode("hello"), "<- should be [5, 2, 9, 9, 3]") // [5, 2, 9, 9, 3]
+console.log("===================")
+console.log("wonderful")
+console.log(decode("wonderful"), "<- should be [11, 3, 2, 1, 2, 6, 3, 9, 9]") // [11, 3, 2, 1, 2, 6, 3, 9, 9]
+console.log("===================")
+console.log("something challenging")
+console.log(decode("something challenging"), "<- should be [7, 3, 10, 2, 8, 5, 6, 2, 4, 5, 18, 5, 16, 9, 9, 2, 2, 4, 6, 2, 4]") // [7, 3, 10, 2, 8, 5, 6, 2, 4, 5, 18, 5, 16, 9, 9, 2, 2, 4, 6, 2, 4]
