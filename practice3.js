@@ -91,3 +91,44 @@ console.log(awardPrizes({
   "Toad" : "Participation"
 }
 	*/
+
+  //                          4/13/22
+
+  /*
+  Balanced Words
+
+  We can assign a value to each character in a word, based on their position in the alphabet (a = 1, b = 2, ... , z = 26). A balanced word is one where the sum of values on the left-hand side of the word equals the sum of values on the right-hand side. For odd length words, the middle character (balance point) is ignored.
+
+  Write a function that returns true if the word is balanced, and false if it's not.
+
+  Examples
+  balanced("zips") ➞ true
+  // "zips" = "zi|ps" = 26+9|16+19 = 35|35 = true
+
+  balanced("brake") ➞ false
+  // "brake" = "br|ke" = 2+18|11+5 = 20|16 = false
+  Notes
+  All words will be lowercase, and have a minimum of 2 characters.
+  Palindromic words will always be balanced.
+*/
+
+function balanced(word) {
+	// const values = {
+	// 	"a": 1
+	// }
+	let arr = word.split("")
+	console.log(arr)
+	let arr1 = arr.slice(0, Math.floor((arr.length / 2)))
+	let arr2 = []
+	if (arr.length % 2 !== 0) {
+		arr2 = arr.slice(Math.floor(arr.length / 2) + 1)
+	} else {
+		arr2 = arr.slice(Math.floor(arr.length / 2))
+	}
+	console.log("arr1 = ", arr1)
+	console.log("arr2 = ", arr2)
+	// manually assign each letter its value. Then reduce each arr and compare
+}
+
+console.log(balanced("zips")) // true
+console.log(balanced("brake")) // false
