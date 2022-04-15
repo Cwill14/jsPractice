@@ -113,22 +113,72 @@ console.log(awardPrizes({
 */
 
 function balanced(word) {
-	// const values = {
-	// 	"a": 1
-	// }
-	let arr = word.split("")
+	// create letter values
+	const values = {
+		"a": 1,
+		"b": 2,
+		"c": 3,
+		"d": 4,
+		"e": 5,
+		"f": 6,
+		"g": 7,
+		"h": 8,
+		"i": 9,
+		"j": 10,
+		"k": 11,
+		"l": 12,
+		"m": 13,
+		"n": 14,
+		"o": 15,
+		"p": 16,
+		"q": 17,
+		"r": 18,
+		"s": 19,
+		"t": 20,
+		"u": 21,
+		"v": 22,
+		"w": 23,
+		"x": 24,
+		"y": 25,
+		"z": 26
+	}
+	// split into array
+	let arr = word.toLowerCase().split("")
 	console.log(arr)
-	let arr1 = arr.slice(0, Math.floor((arr.length / 2)))
+	// add edge case for palindromes
+	if (arr.join("") === arr.reverse().join("")) {
+		return true
+	}
+	// convert to nums
+	nArr = arr.map(value => {
+		// console.log("values[value] =", values[value])
+		return value = values[value]
+	})
+	// create first half of array
+	let arr1 = nArr.slice(0, Math.floor((nArr.length / 2)))
+	// create second half
 	let arr2 = []
-	if (arr.length % 2 !== 0) {
-		arr2 = arr.slice(Math.floor(arr.length / 2) + 1)
+	// if word length odd number, second array ignores middle value
+	if (nArr.length % 2 !== 0) {
+		arr2 = nArr.slice(Math.floor(nArr.length / 2) + 1)
 	} else {
-		arr2 = arr.slice(Math.floor(arr.length / 2))
+		arr2 = nArr.slice(Math.floor(nArr.length / 2))
 	}
 	console.log("arr1 = ", arr1)
 	console.log("arr2 = ", arr2)
-	// manually assign each letter its value. Then reduce each arr and compare
+	// add up values
+	const r = array => {
+		 return array.reduce((total, curr) => {
+			 return total + curr
+		})
+	}
+	console.log("r(arr1) =", r(arr1))
+	console.log("r(arr2) =", r(arr2))
+	// compare and return
+	return r(arr1) === r(arr2)
 }
 
 console.log(balanced("zips")) // true
 console.log(balanced("brake")) // false
+console.log(balanced("BraVe")) // false
+console.log(balanced("racecar")) // true
