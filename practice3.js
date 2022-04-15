@@ -182,3 +182,87 @@ console.log(balanced("zips")) // true
 console.log(balanced("brake")) // false
 console.log(balanced("BraVe")) // false
 console.log(balanced("racecar")) // true
+
+/*
+Tic Tac Toe
+
+Given a 3x3 matrix of a completed tic-tac-toe game, create a function that returns whether the game is a win for "X", "O", or a "Draw", where "X" and "O" represent themselves on the matrix, and "E" represents an empty spot.
+Examples
+ticTacToe([
+  ["X", "O", "X"],
+  ["O", "X",  "O"],
+  ["O", "X",  "X"]
+]) ➞ "X"
+
+ticTacToe([
+  ["O", "O", "O"],
+  ["O", "X", "X"],
+  ["E", "X", "X"]
+]) ➞ "O"
+
+ticTacToe([
+  ["X", "X", "O"],
+  ["O", "O", "X"],
+  ["X", "X", "O"]
+]) ➞ "Draw"
+Notes
+Make sure that if O wins, you return the letter "O" and not the integer 0 (zero) and if it's a draw, make sure you return the capitalised word "Draw". If you return "X" or "O", make sure they're capitalised too.
+*/
+
+function ticTacToe(board) {
+	// default return to "Draw"
+	let winner = "Draw"
+	// define subarrs for clarity
+	let sub1 = board[0]
+	let sub2 = board[1]
+	let sub3 = board[2]
+	// check rows
+	// using foreach since subarrs are already separated, checking one subarr at a time
+	const checkRows = sub => {
+		if (sub[0] === sub[1] && sub[0] == sub[2]) {
+			winner = sub[0]
+		}
+	}
+	board.forEach(subarray => checkRows(subarray))
+	// check columns
+	// using loops since they are checking bewtten diff sub arrays, 3 times
+	for (let i = 0; i < 2; i++) {
+		if (sub1[i] === sub2[i] && sub1[i] == sub3[i]) {
+			winner = sub1[i]
+		}
+	}
+	// check diagonals
+	// only 2 possible wins, combining into one if statement
+	if ((sub1[0] === sub2[1] && sub1[0] == sub3[2]) || (sub1[2] === sub2[1] && sub1[2] == sub3[0])) {
+		// middle is consistent in diagonal wins
+		winner = sub2[1]
+	}
+	return winner
+}
+
+
+
+console.log(ticTacToe([
+  ["X", "O", "X"],
+  ["O", "X",  "O"],
+  ["O", "X",  "X"]
+])) // "diagonal, X"
+console.log("diagonal, X")
+console.log(ticTacToe([
+  ["O", "O", "O"],
+  ["O", "X", "X"],
+  ["E", "X", "X"]
+])) // "row, O"
+console.log("row, O")
+console.log(ticTacToe([
+  ["O", "X", "O"],
+  ["O", "X", "X"],
+  ["E", "X", "0"]
+])) // "column, X"
+console.log("column, X")
+console.log(ticTacToe([
+  ["X", "X", "O"],
+  ["O", "O", "X"],
+  ["X", "X", "O"]
+])) // "Draw"
+console.log("Draw")
