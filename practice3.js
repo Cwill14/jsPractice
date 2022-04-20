@@ -266,3 +266,90 @@ console.log(ticTacToe([
   ["X", "X", "O"]
 ])) // "Draw"
 console.log("Draw")
+
+// 													4/19/22
+
+/*
+Validate Phone Numbers
+
+Write a function that returns true if the phone number is in a valid format. Valid formats are as follows:
+
+With Country Code	Without Country Code
++1-892-445-7663	892-445-7663
+1-892-445-7663	(892) 445-7663
+1 (892) 445-7663	892.567.8901
+1.892.567.8901	1/892/567/8901
+1 892 567 8901	892/567/8901
+18925678901	892 567 8901
+Examples
+validate("578-332-1114") ➞ true
+
+validate("57-332-1114") ➞ false
+
+validate("577 332  1114") ➞ false
+// More than one space in between digits clusters.
+
+validate("57 332 1114") ➞ false
+// Unacceptable digit cluster length.
+
+validate("157%332-1114") ➞ false
+// Unacceptable delimiter.
+Notes
+The country code will always be +1 or 1.
+Each phone number will contain either 10 or 11 digits (depending on whether the country code exists).
+There must either be exactly one space, a delimiter, or no space at all between the digit clusters.
+You do not have to worry about extensions.
+*/
+
+function validate(s) {
+	// length/number of digits
+		// split into each cluster
+	// valid delimiters
+		// split into cluster at delimiters
+
+	// check if non-digits are valid delmiter
+		// if yes, split into clusters at delimiter
+			// 1st 2 clusters are 3, last is 4 digits
+
+	
+	let validDelimiters = ["-", "(", ")", " ", ".", "/", ") "] // valid delimiters to compare against
+	// console.log(/\s|\D/ig.toString())
+	
+	// test length (if 13 delims, also check index0 == 1 or if 14 it starts w/ +1)
+	// could also test # of digits
+		// if 11, first digit == 1
+	let digits = s.match(/\d/g)
+	console.log(digits)
+	// if (digits.length !== 10 || (digits.length == 11 && digits[0] !== 1)) {
+	if (digits.length !== 10) {
+		if (digits.length == 11 && digits[0] != 1) {
+			console.log("failure bro")
+		}
+	}
+	// test cluster lengths
+	let clusters = s.split(/\s|\D/ig) // splits at each non digit or space
+	console.log(clusters)
+/
+	
+	// test delimiters
+}
+
+
+console.log(validate("578-332-1114"), true) // true
+console.log("------------- 2")
+console.log(validate("578-332-11114"), false) // false
+console.log("------------- 3")
+console.log(validate("8924457663"), true) // true
+console.log("------------- 4")
+console.log(validate("(892) 445-7663"), true) // true
+console.log("------------- 5")
+console.log(validate("57-332-1114"), false) // false
+console.log("------------- 6")
+console.log(validate("577 332  1114"), false) // false
+// More than one space in between digits clusters.
+console.log("------------- 7")
+console.log(validate("1257 332 1234"), false) // false
+// Unacceptable digit cluster length.
+console.log("------------- 8")
+console.log(validate("157%332-1114"), false) // false
+// Unacceptable delimiter.
