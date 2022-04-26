@@ -353,3 +353,123 @@ console.log(validate("1257 332 1234"), false) // false
 console.log("------------- 8")
 console.log(validate("157%332-1114"), false) // false
 // Unacceptable delimiter.
+
+
+//													Insert Element in Singly Linked List in a Given Index
+	
+/*
+Create a method in a LinkedList class called insert that adds an element to the given index of the linked list and returns the added element. The LinkedList class is created for you. The first parameter is index and the second is element to be added.
+
+Examples
+Suppose data = [1, 2, 3]    // Just for explanation.
+
+insert(10, 10) ➞ "Element cannot be added"
+// index = 10 and element = 10
+// Therefore, we cannot insert 10 because index > size of
+// data and return msg.
+
+insert(-1, 10) ➞ "Element cannot be added"
+// index = -1 and element = 10
+// Therefore, we cannot insert 10 because index is negative
+// (less than zero) return msg.
+
+insert(0, 0) ➞ 0
+// index = 0 and element = 0
+// Therefore, we insert 0 at index 0 (beginning of the linked
+// list) and return element.
+Notes
+Element is an integer.
+*/
+
+
+function Node(element) {
+	this.element = element;
+	this.next = null;
+}
+function LinkedList() {
+	let length = 0;
+	let head = null;
+	
+	this.push = function(element) {
+		const node = new Node(element);
+		if(!head){
+			head = node;
+			length++;
+		}
+		else {
+			let current = head;
+			while(current.next){
+				current = current.next;
+			}
+			current.next = node;
+			length++;
+		}
+	}
+	
+	// Start
+	this.insert = function (index, element) {
+	  // check if positive, check length
+		// if index 0, add as new head
+		if (index == 0) {
+			let prevHead = head
+			head = new Node(element)
+			head.next = prevHead
+			length++;
+		} else if (index > 0 && index <= length) {
+			// iterate to index -1 so we can assign element as next for prev node
+			let current = head
+			let currIndex = 0
+			while (currIndex < index - 1){
+				current = current.next
+				currIndex++
+			}
+			// store old next node for using later as index + 1 node
+			let nElement = current.next
+			// assign element as curr.next for index -1 node
+			current.next = new Node(element)
+			length++;
+			current = current.next
+			// assign curr.next as index +1 node
+			current.next = nElement
+		} else {
+			console.log("Element cannot be added")
+			return "Element cannot be added"
+		}
+	
+	
+	};
+	// End
+	
+	this.check = function() {
+		const sol = [];
+		let current = head;
+		while(current){
+			sol.push(current.element);
+			current = current.next;
+		}
+		return sol.join("");
+	}
+}
+
+let data = new LinkedList()
+data.push(1)
+data.push(2)
+data.push(3)
+console.log(data.check())
+
+data.insert(10, 10) // "Element cannot be added"
+console.log("---------------")
+data.insert(-1, 10) // "Element cannot be added"
+console.log("---------------")
+data.insert(0, 0) // 0 ; data = 0123
+console.log(data.check())
+console.log("---------------")
+data.insert(2, 6) // 6 ; data = 01623
+console.log(data.check())
+console.log("---------------")
+data.insert(5, 9) // 6 ; data = 016239
+console.log(data.check())
+console.log("---------------")
+data.insert(4, 7) // 6 ; data = 0162739
+console.log(data.check())
+
