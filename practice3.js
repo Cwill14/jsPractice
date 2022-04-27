@@ -329,8 +329,6 @@ function validate(s) {
 	// test cluster lengths
 	let clusters = s.split(/\s|\D/ig) // splits at each non digit or space
 	console.log(clusters)
-/
-	
 	// test delimiters
 }
 
@@ -473,3 +471,54 @@ console.log("---------------")
 data.insert(4, 7) // 6 ; data = 0162739
 console.log(data.check())
 
+//								4/26/22
+
+// Find All Digits
+
+/*
+Taking each four digit number of an array in turn, return the number that you are on when all of the digits 0-9 have been discovered. If not all of the digits can be found, return "Missing digits!".
+
+Examples
+findAllDigits([5175, 4538, 2926, 5057, 6401, 4376, 2280, 6137, 8798, 9083]) ➞ 5057
+// digits found:  517-  4-38  29-6  -0
+
+findAllDigits([5719, 7218, 3989, 8161, 2676, 3847, 6896, 3370, 2363, 1381]) ➞ 3370
+// digits found:  5719  -2-8  3---  --6-  ----  --4-  ----  ---0
+
+findAllDigits([4883, 3876, 7769, 9846, 9546, 9634, 9696, 2832, 6822, 6868]) ➞ "Missing digits!"
+// digits found:  48-3  --76  ---9  ----  -5--  ----  ----  2---
+// 0 and 1 are missing
+Notes
+The digits can be discovered in any order.
+*/
+
+function findAllDigits(nums) {
+	// create set to track digits detected
+	let digits = new Set()
+	// loop through arr of 4-digit nums
+	for (let i = 0; i < nums.length; i++) {
+		// split each num into a sub arr of nums
+		let splitNum = nums[i].toString().split("").map(n => parseInt(n))
+		// loop through sub arr (each digit value)
+		for (let j = 0; j < 4; j++) {
+			// sets will only add values if they are unique/not in set already
+			digits.add(splitNum[j])
+		}
+		// if each digit is present (10 unique values, 0-9), return current num
+		if (digits.size == 10) {
+			return nums[i]
+		}
+	}
+	// if it hasn't returned w/ answer by now, return error message
+	return "Missing Digits!"
+}
+
+console.log(findAllDigits([5175, 4538, 2926, 5057, 6401, 4376, 2280, 6137, 8798, 9083]), "5057")
+// digits found:  517-  4-38  29-6  -0
+console.log("----------")
+console.log(findAllDigits([5719, 7218, 3989, 8161, 2676, 3847, 6896, 3370, 2363, 1381]), "3370")
+// digits found:  5719  -2-8  3---  --6-  ----  --4-  ----  ---0
+console.log("----------")
+console.log(findAllDigits([4883, 3876, 7769, 9846, 9546, 9634, 9696, 2832, 6822, 6868]), "Missing digits!")
+// digits found:  48-3  --76  ---9  ----  -5--  ----  ----  2---
+// 0 and 1 are missing
