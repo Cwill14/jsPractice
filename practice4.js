@@ -165,3 +165,110 @@ console.log("------------")
 console.log(numToEng(811), "<= should be: eight hundred eleven ")
 console.log("------------")
 console.log(numToEng(909), "<= should be: nine hundred nine")
+
+//										5/2/22
+
+// Secret Agent Password
+
+/*
+Mubashir is going on a secret mission. He needs your help but you have to learn how to encode a secret password to communicate safely with other agents. Create a function that takes an argument message and returns the encoded password.
+
+There are some variations on the rules of encipherment. One version of the cipher rules are outlined below:
+
+secretPassword("mubashirh") ➞ "hsajsi13u2"
+Step 1: Message length should be of nine characters containing only lowercase letters from 'a' to 'z'. If the argument doesn't meet this requirement you must return "BANG! BANG! BANG!" (Remember, there are no second chances in the spy world!)
+
+Step 2: Divide the string into three equal parts of three characters each:
+
+1 - mub
+2 - ash
+3 - irh
+Step 3: Convert the first and third letter to the corresponding number, according to the English alphabets (ex. a = 1, b = 2, c = 3 ... z = 26, etc).
+
+mub = 13u2
+Step 4: Reverse the fourth, fifth, and sixth letters:
+
+ash = hsa
+Step 5: Replace seventh, eighth, and ninth letter with next letter (z will be substituted with a).
+
+irh = jsi
+Step 6: Return the string in the following order: "Part_2+Part_3+Part_1"
+
+"hsajsi13u2"
+See the below examples for a better understanding:
+
+Examples
+secretPassword("mubashirh") ➞ "hsajsi13u2"
+
+secretPassword("mattedabi") ➞ "detbcj13a20"
+
+secretPassword("HeLen-eda") ➞ "BANG! BANG! BANG!"
+// Length is not equal to 9
+// Contains characters other than lower alphabets
+*/
+
+function secretPassword(message) {
+	// declard alphabet values
+	const alphabet = {
+		"a": 1,
+		"b": 2,
+		"c": 3,
+		"d": 4,
+		"e": 5,
+		"f": 6,
+		"g": 7,
+		"h": 8,
+		"i": 9,
+		"j": 10,
+		"k": 11,
+		"l": 12,
+		"m": 13,
+		"n": 14,
+		"o": 15,
+		"p": 16,
+		"q": 17,
+		"r": 18,
+		"s": 19,
+		"t": 20,
+		"u": 21,
+		"v": 22,
+		"w": 23,
+		"x": 24,
+		"y": 25,
+		"z": 26
+	}
+	// test if valid string
+	if (message.length !== 9 || /[^a-z]/g.test(message)) {
+		return "BANG! BANG! BANG!"
+	}
+	// split into 3 sections
+	let arr = message.split("")
+	let arr1 = [arr[0], arr[1], arr[2]]
+	let arr2 = [arr[3], arr[4], arr[5]]
+	let arr3 = [arr[6], arr[7], arr[8]]
+	// section 1: convert 0 and 2 to corresponding number
+	arr1[0] = alphabet[arr1[0]]
+	arr1[2] = alphabet[arr1[2]]
+	// section 2: reverse
+	arr2 = arr2.reverse()
+	// section 3:  replace w/ next letter
+	let nArr3 = []
+	arr3.map(val => {
+		for (const [key, value] of Object.entries(alphabet)) {
+			if (value == alphabet[val]+1) {
+				nArr3.push(key)
+			}
+		}
+	})
+	// return in order 2, 3, 1
+	let y = arr2 + nArr3 + arr1
+	return y.split("").filter(c => c!== ",").join("")
+}
+
+console.log(secretPassword("mubashirh"), "hsajsi13u2")
+console.log(secretPassword("mattedabi"), "detbcj13a20")
+console.log(secretPassword("matTedabi"), "detbcj13a20")
+console.log(secretPassword("m32uedadi"), "detbcj13a20")
+console.log(secretPassword("HeLen-eda"), "BANG! BANG! BANG!")
+// Length is not equal to 9
+// Contains characters other than lower alphabets
