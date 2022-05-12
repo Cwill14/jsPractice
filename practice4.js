@@ -533,3 +533,13 @@ console.log(isSet([
   { color: "red", number: 2, shade: "lined", shape: "diamond" },
   { color: "red", number: 3, shade: "full", shape: "oval" }
 ]), "true") //true
+
+// Leetcode 5/11/22
+var containsDuplicate = function(nums) {
+    return nums.length !== new Set(nums).size
+};
+
+console.log(containsDuplicate([1,2,3,1]), "true")
+console.log(containsDuplicate([1,2,3,4]), "false")
+
+// Starting watching CTACU 101. Cloud services 101
