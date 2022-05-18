@@ -147,3 +147,65 @@ console.log(caesarCipher("Always-Look-on-the-Bright-Side-of-Life", 5), "<-- shou
 console.log("-----------------------------")
 console.log(caesarCipher("A friend in need is a friend indeed", 20), "<-- should === 'U zlcyhx ch hyyx cm u zlcyhx chxyyx'")
 // "U zlcyhx ch hyyx cm u zlcyhx chxyyx"
+
+//  5/18/22
+
+// Wildcard Matching
+
+/*
+Given an input string (s) and a pattern (p), implement wildcard pattern matching with support for '?' and '*' where:
+
+'?' Matches any single character.
+'*' Matches any sequence of characters (including the empty sequence).
+The matching should cover the entire input string (not partial).
+
+ 
+
+Example 1:
+
+Input: s = "aa", p = "a"
+Output: false
+Explanation: "a" does not match the entire string "aa".
+Example 2:
+
+Input: s = "aa", p = "*"
+Output: true
+Explanation: '*' matches any sequence.
+Example 3:
+
+Input: s = "cb", p = "?a"
+Output: false
+Explanation: '?' matches 'c', but the second letter is 'a', which does not match 'b'.
+ 
+
+Constraints:
+
+0 <= s.length, p.length <= 2000
+s contains only lowercase English letters.
+p contains only lowercase English letters, '?' or '*'.
+*/
+
+const isMatch = function(s, p) {
+	let match= true
+	// check length. if !==, but includes *, return true
+	if (s.length !== p.length) {
+		return p.split("").includes("*")
+	// else
+	} else {
+		// split both, loop & compare index against each other.
+		sArr = s.split("")
+		pArr = p.split("")
+		for (let i = 0; i < p.length; ++i) {
+            // if === or ? match = true
+		    // else return false
+			if (p[i] !== s[i] || p[i] !== "?") {
+				match = false
+				break
+			} else {
+				console.log("yay")
+			}
+
+		}
+	}
+	return match
+};
