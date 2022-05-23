@@ -187,25 +187,35 @@ p contains only lowercase English letters, '?' or '*'.
 
 const isMatch = function(s, p) {
 	let match= true
-	// check length. if !==, but includes *, return true
-	if (s.length !== p.length) {
-		return p.split("").includes("*")
+	// check length. if !== and no wildcard, false
+	if (s.length !== p.length && !p.split("").includes("*")) {
+		match = false
 	// else
 	} else {
 		// split both, loop & compare index against each other.
 		sArr = s.split("")
 		pArr = p.split("")
 		for (let i = 0; i < p.length; ++i) {
-            // if === or ? match = true
-		    // else return false
-			if (p[i] !== s[i] || p[i] !== "?") {
+			// if a *, matches any sequence
+			if (pArr[i] == "*") {
+				match = true
+				break;
+			// if it doesn't match, or match ?, false
+			} else if (pArr[i] !== sArr[i] && pArr[i] !== "?") {
 				match = false
-				break
-			} else {
-				console.log("yay")
-			}
-
+				break;
+			} 
 		}
 	}
 	return match
 };
+
+console.log(isMatch("aa", "aa"), "true")
+console.log("------------------")
+console.log(isMatch("aa", "a"), "false")
+console.log("------------------")
+console.log(isMatch("aa", "*"), "true")
+console.log("------------------")
+console.log(isMatch("cb", "?a"), "false")
+console.log("------------------")
+console.log(isMatch("cb", "?b"), "true")
