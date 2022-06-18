@@ -219,3 +219,70 @@ console.log("------------------")
 console.log(isMatch("cb", "?a"), "false")
 console.log("------------------")
 console.log(isMatch("cb", "?b"), "true")
+
+// 6/17/22
+
+/*
+I Made a Mistake
+
+I made a mistake and overwrote a JSON file with some weird data, thankfully I had no back-up and I'm too lazy to fix it so now you guys can solve it for me!
+
+Get the strings out of those arrays.
+
+Examples
+getValue([[[[[[[[[[[[[[[["Bazinga"]]]]]]]]][]]]]]]]]) ➞ "Bazinga"
+
+getValue([[[][[[[[[[["God, what is happening"]]]]]]]]]) ➞"God, what is happening"
+
+getValue([[[[[[[[[[[]]]]]]]]]]]) ➞ "What... why did you make this?"
+
+getValue([[][][][][][][][[][][[[[[[["I have no idea what i'm doing"]]]]]]]]]) ➞ 
+"I have no idea what i'm doing"
+
+Notice that if there is no string, you should return a pre-defined string (see example #3).
+*/ 
+
+function getValue(input) {
+	let arrs = input.split("")
+	// console.log("arrs = ", arrs)
+	// // slice out everything inside quotations
+	// // if no quotes, return "What... why did you make this?"
+	// // loop counter from front and end, find indexes, use to slice
+	let first = 0
+	let second = 0
+	if (!arrs.includes('"')) {
+		return "What... why did you make this?"
+	}
+	for (let i = 0; i < arrs.length; i++) {
+		// console.log("forward i = ", i)
+		// console.log("forward arrs[i]= ", arrs[i])
+		if (arrs[i] == '"') {
+			first = i
+			break
+		}
+	}
+	for (let i = arrs.length; i >= 0; i--) {
+		// console.log("backward i = ", i)
+		// console.log("backward = ", arrs[i])
+		if (arrs[i] == '"') {
+			second = i
+			break
+		}
+	}
+	// console.log("first =", first)
+	// console.log("second =", second)
+	let sliced = arrs.slice(first + 1, second)
+	// console.log("sliced.join('') = ", sliced.join(""))
+	return sliced.join("")
+	// // loop, remove, stop once reaching quote, from both ends
+	// // regex
+}
+
+console.log(getValue('[[[[[[[[[[[[[[[["Bazinga"]]]]]]]]][]]]]]]]]'), "Bazinga")
+console.log("----------------------------------------------")
+console.log(getValue('[[[][[[[[[[["God, what is happening"]]]]]]]]]'),"God, what is happening")
+console.log("----------------------------------------------")
+console.log(getValue('[[[[[[[[[[[]]]]]]]]]]]'), "What... why did you make this?")
+console.log("----------------------------------------------")
+console.log(getValue(`[[][][][][][][][[][][[[[[[["I have no idea what i'm doing"]]]]]]]]]`), 
+"I have no idea what i'm doing")
