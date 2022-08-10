@@ -337,3 +337,77 @@ console.log(weeklySalary([8, 8, 8, 8, 8, 0, 0]), " should be 400") // 400
 console.log(weeklySalary([10, 10, 10, 0, 8, 0, 0]), " should be 410") // 410
 
 console.log(weeklySalary([0, 0, 0, 0, 0, 12, 0]), " should be 280") // 280
+
+// 			8/9/22
+
+/*
+Text Editor Part 1
+
+We're going to create a text editor similar to Microsoft Word. The editor autosaves so that the user only loses a small amount of data if a crash occurs.
+
+We want to be able to handle as many operations as needed, but they have to be processed in order. There are two basic operations that our editor understands:
+
+An insert operation contains the text to be inserted and the position to insert it at.
+A delete operation contains the position to delete from and the length of the text to delete.
+Write a function that takes a list of operations, either insert or delete, and returns the combined text.
+
+Examples
+[Insert("foo", 0), Insert(" bar", 3)] ➞ "foo bar"
+
+[Insert("foo bar", 0), Delete(4, 2)] ➞ "fobar"
+Notes
+Keep in mind that each operation will have data that assumes the previous operations were already processed.
+*/
+
+// Input will be an array of objects of the form:
+// {operation: "insert", text: string, position: number}
+// {operation: "delete", from: number, length: number}
+function edit(operations) {
+	let doc = ""
+	// let docArr = []
+	operations.forEach(op => {
+		// console.log("op = ", op)
+		// console.log("op.operation = ", op.operation)
+		// let docArr = doc.split("")
+		// console.log("docArr = ", docArr)
+		let docArr = doc.split("")
+		if (op.operation == "insert") {
+			// splice isn't working yet on insert for some reason
+			// console.log("op.position = ", op.position)
+			// console.log("op.text = ", op.text)
+			// // doc.split("").splice(0, 0, "foo").join("")
+			// // docArr.splice(0, 0, "foo")
+			// doc = docArr.splice(op.position, 0, op.text).join("")
+			// console.log("x = ", x)
+			// console.log("docArr after op: ", docArr)
+			// console.log("doc after op: ", doc)
+			
+			// using substrings:
+			// /*
+			let preSub = doc.substring(0, op.position)
+			let postSub = doc.substring(op.position)
+			// console.log("preSub = ", preSub)
+			// console.log("postSub = ", postSub)
+			doc = preSub + op.text + postSub
+			// */
+			// console.log("doc after insert= ", doc)
+			
+			
+		} else if (op.operation == "delete") {
+			// console.log("op.from = ", op.from)
+			// console.log("op.length = ", op.length)
+			docArr.splice(op.from - op.length, op.length)
+			doc = docArr.join("")
+			// console.log("doc after delete = ", doc)
+			
+		}
+		// console.log("doc after op: ", doc)
+		// console.log("doc.split = ", doc.split(""))
+	})
+	return doc
+	// split, use splice, join
+}
+
+console.log(edit([{operation: "insert", text: "foo", position: 0}, {operation: "insert", text: " bar", position: 3}])) // "foo bar"
+
+console.log(edit([{operation: "insert", text: "foo bar", position: 0}, {operation: "delete", from: 4, length: 2}])) // "fobar"
