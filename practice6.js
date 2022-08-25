@@ -84,8 +84,9 @@ function highestPair(cards) {
 		for (const [key, value] of Object.entries(faceVals)) {
 			if (x == value) {
 				return [true, `${key}`]
-			}
+			} 
 		}
+		return [true, `${x}`]
 	}
 }
 
@@ -95,3 +96,5 @@ console.log(highestPair(["K", "7", "3", "9", "3"])) // [true, "3"]
 console.log(highestPair(["K", "9", "10", "J", "Q"])) // false
 console.log(highestPair(["3", "5", "5", "5", "5"])) // [true, "5"]
 console.log(highestPair(["K", "10", "10", "K", "5"])) // [true, "K"]
+console.log(highestPair(["7", "10", "10", "7", "5"])) // [true, "10"]
+console.log(highestPair(["7", "6", "10", "7", "5"])) // [true, "7"]
