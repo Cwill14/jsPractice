@@ -90,6 +90,62 @@ function highestPair(cards) {
 	}
 }
 
+// SOLUTION 2
+
+function highestPair(cards) {
+	// convert faces to nums
+	const faceVals = {
+		"A": 14,
+		"K": 13,
+		"Q": 12,
+		"J": 11
+	}
+	const converted = []
+	cards.map(c => {
+		if (/\D/.test(c)) {
+			converted.push(parseInt(faceVals[c]))
+		} else {
+			converted.push(parseInt(c))
+		}
+	})
+	// sort
+	let sorted = converted.sort((a, b) => a - b)
+	// compare against index 0
+	let highest = sorted[0]
+	let pair = false
+	// if match, set as pair; if greater than current highest val, update to new highest val
+	for (let i = 1; i < sorted.length; i++) {
+		if (sorted[i] === highest) {
+			pair = sorted[i]
+		} else if (sorted[i] > highest) {
+			highest = sorted[i]
+		}
+	}
+	// if still no match at end, return false
+	if (!pair) {
+		return false
+	} 
+	// if answer is face, convert back to letter
+	let x = `${pair}`;
+	if (pair > 10) {
+		switch (pair) {
+			case 14:
+				x = "A"
+				break
+			case 13:
+				x = "K"
+				break
+			case 12:
+				x = "Q"
+				break
+			case 11:
+				x = "J"
+				break
+		}
+	}
+	return [true, x]
+}
+
 console.log(highestPair(["A", "A", "Q", "Q", "6" ])) // [true, "A"]
 console.log(highestPair(["J", "6", "3", "10", "8"])) // false
 console.log(highestPair(["K", "7", "3", "9", "3"])) // [true, "3"]
