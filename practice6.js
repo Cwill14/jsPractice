@@ -154,3 +154,47 @@ console.log(highestPair(["3", "5", "5", "5", "5"])) // [true, "5"]
 console.log(highestPair(["K", "10", "10", "K", "5"])) // [true, "K"]
 console.log(highestPair(["7", "10", "10", "7", "5"])) // [true, "10"]
 console.log(highestPair(["7", "6", "10", "7", "5"])) // [true, "7"]
+
+/*
+Majority Vote
+Create a function that returns the majority vote in an array. A majority vote is an element that occurs > N/2 times in an array (where N is the length of the array).
+
+Examples
+majorityVote(["A", "A", "B"]) ➞ "A"
+
+majorityVote(["A", "A", "A", "B", "C", "A"]) ➞ "A"
+
+majorityVote(["A", "B", "B", "A", "C", "C"]) ➞ null
+Notes
+The frequency of the majority element must be strictly greater than 1/2.
+If there is no majority element, return null.
+If the array is empty, return null.
+*/
+function majorityVote(arr) {
+	// if arr empty, return null
+	if (arr.length == 0) return null
+	// store votes in obj
+	const obj = {}
+	for (let index in arr) {
+		if (obj[arr[index]]) {
+			obj[arr[index]]++
+		} else {
+			obj[arr[index]] = 1
+		}
+	}
+	// loop through obj
+	for (const [key, value] of Object.entries(obj)) {
+		// if val > n/2, return key
+		if (value > arr.length / 2) {
+			return key
+		}
+	}
+	return null
+	// if no majority, return null
+}
+
+console.log(majorityVote(["A", "A", "B"])) // "A"
+console.log(majorityVote(["A", "B", "B", "A", "B"])) // "B"
+console.log(majorityVote(["A", "A", "A", "B", "C", "A"])) // "A"
+console.log(majorityVote(["A", "B", "B", "A", "C", "C"]))// null
+console.log(majorityVote([]))// null
