@@ -198,3 +198,38 @@ console.log(majorityVote(["A", "B", "B", "A", "B"])) // "B"
 console.log(majorityVote(["A", "A", "A", "B", "C", "A"])) // "A"
 console.log(majorityVote(["A", "B", "B", "A", "C", "C"]))// null
 console.log(majorityVote([]))// null
+
+/*
+Extracting Words with "-ing" Inflection
+Write a function that takes a string as an argument and returns a list of all the words inflected by "-ing". Your function should also exclude all the mono-syllabic words ending in "-ing" (e.g. bing, sing, sling, ...). Although these words end in "-ing", the "-ing" is not an inflection affix.
+
+Examples
+ingExtractor("coming bringing Letting sing") ➞ ["coming", "bringing", "Letting"]
+
+ingExtractor("going Ping, king sHrink dOing") ➞ ["going", "dOing"]
+
+ingExtractor("zing went ring, ding wing SINk") ➞ []
+Notes
+Mono-syllabic means a word containing just one syllable.
+It's probably best to use RegEx for this challenge.
+*/
+function ingExtractor(string) {
+	// define mono-syllabic: no vowels before the -ing?
+	let ans = []
+	// split string into words arr, get only the words ending with -ing
+	const words = string.split(/\W/g).filter(w => /ing\b/ig.test(w))
+	// loop through words
+	words.map(word => {
+		// for each word: split prefix and final -ing; if prefix contains vowel, add to arr
+		const prefix = word.split(/ing\b/)[0]
+		if (/[aeiouy]/gi.test(prefix) && prefix.length > 1) {
+			ans.push(word)
+		}
+	})
+	return ans
+}
+
+console.log(ingExtractor("coming bringing Letting sing")) // ["coming", "bringing", "Letting"]
+console.log(ingExtractor("going Ping, king sHrink dOing")) // ["going", "dOing"]
+console.log(ingExtractor("zing went ring, ding wing SINk")) // []
+console.log(ingExtractor("ringing binged boing ying, toying vying")) // ["ringing, toying, vying"]
