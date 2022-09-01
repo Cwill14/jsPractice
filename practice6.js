@@ -233,3 +233,69 @@ console.log(ingExtractor("coming bringing Letting sing")) // ["coming", "bringin
 console.log(ingExtractor("going Ping, king sHrink dOing")) // ["going", "dOing"]
 console.log(ingExtractor("zing went ring, ding wing SINk")) // []
 console.log(ingExtractor("ringing binged boing ying, toying vying")) // ["ringing, toying, vying"]
+
+/*
+Track the Robot (Part 2)
+This robot roams around a 2D grid. It starts at (0, 0) facing North. After each time it moves, the robot rotates 90 degrees clockwise. Given the amount the robot has moved each time, you have to calculate the robot's final position.
+
+To illustrate, if the robot is given the movements 20, 30, 10, 40 then it will move:
+
+20 steps North, now at (0, 20)
+30 steps East, now at (30, 20)
+10 steps South. now at (30, 10)
+40 steps West, now at (-10, 10)
+...and will end up at coordinates (-10, 10).
+
+Examples
+trackRobot(20, 30, 10, 40) ➞ [-10, 10]
+
+trackRobot() ➞ [0, 0]
+// No movement means the robot stays at (0, 0).
+
+trackRobot(-10, 20, 10) ➞ [20, -20]
+// The amount to move can be negative.
+Notes
+Each movement is an integer (whole number).
+*/
+
+function trackRobot(...steps) {
+	// if list is empty, no moves
+	let final = [0, 0]
+	if (steps.length === 0) return final
+	// loop through list
+	for (let i = 0, d = 1; i < steps.length; i++) {
+		switch (d) {
+			//  1st (north) add param to y
+			case 1:
+				final[1] += steps[i]
+				d++
+				break
+			// 2nd (east) add to x
+			case 2:
+				final[0] += steps[i]
+				d++
+				break
+			// 3rd (south) sub from y
+			case 3:
+				final[1] -= steps[i]
+				d++
+				break
+			// 4th (west) sub from x
+			case 4:
+				final[0] -= steps[i]
+				d = 1
+				break
+		}
+	}
+	return final
+}
+
+console.log(trackRobot(20, 30, 10, 40)) // [-10, 10]
+console.log(trackRobot()) // [0, 0]
+console.log(trackRobot(-10, 20, 10)) // [20, -20]
+console.log(trackRobot(20, 30, 10, 40)) // [-10, 10]
+console.log(trackRobot(10, -10, -10, 10)) // [-20, 20]
+console.log(trackRobot()) // [0, 0]
+console.log(trackRobot(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) // [6, 5]
+console.log(trackRobot(1, 0, 2, 0, 3, 0, 4, 0, 5, 0)) // [0, 3]
+console.log(trackRobot(0, 1, 0, 2, 0, 3, 0, 4, 0, 5)) // [3, 0]
