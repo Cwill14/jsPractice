@@ -299,3 +299,264 @@ console.log(trackRobot()) // [0, 0]
 console.log(trackRobot(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) // [6, 5]
 console.log(trackRobot(1, 0, 2, 0, 3, 0, 4, 0, 5, 0)) // [0, 3]
 console.log(trackRobot(0, 1, 0, 2, 0, 3, 0, 4, 0, 5)) // [3, 0]
+
+/*
+Road Navigation
+Road systems can be imagined as a graph of intersections connected by lines. The advantage of this is it makes it easier to find the shortest path between any two intersections.
+
+Task
+Write a function that takes as arguments:
+
+A graph of the road system
+The starting intersection (node)
+The ending intersection (node)
+And returns an object containing information about the shortest path.
+
+Format of the road graph
+The road graph follows the JSON graph specification linked in the Resources tab. As an example, this is what one road graph could look like (in JSON):
+
+{
+  "graph": {
+    "directed": false,
+    "nodes": [
+      { "id": 0 },
+      { "id": 1 },
+      { "id": 2 },
+       { "id": 3 }
+    ],
+    "edges": [
+      {
+        "source": 0,
+        "target": 1,
+        "metadata": {
+          "distance": 5
+        }
+      },
+      {
+        "source": 1,
+        "target": 3,
+        "metadata": {
+          "distance": 9
+        }
+      },
+      {
+        "source": 3,
+        "target": 2,
+        "metadata": {
+          "distance": 6
+        }
+      },
+      {
+        "source": 2,
+        "target": 4,
+        "metadata": {
+          "distance": 3
+        }
+      },
+      {
+        "source": 4,
+        "target": 3,
+        "metadata": {
+          "distance": 8
+        },
+      },
+      {
+       "source": 4,
+       "target": 0,
+       "metadata": {
+         "distance": 2
+       }
+     }
+    ]
+  }
+}
+Additionally, all edges are two way roads (undirected), so you don't need to worry about that. Which node is in source and which is in target does not matter. Edges may contain the property label, which is just a street name and not necessary for you to use.
+
+And remember, the goal is to minimize the sum of all the metadata.distance properties of edges used.
+
+Format of return value
+The return value should be an object with properties distance and path.
+
+distance should be the number that is the total sum of the distance metadata on each edge used.
+
+path should be an array of numbers, where each number is the id of a node used along the path from the start to the end.
+
+For example, if the shortest path from node 1 to node id 2 was going from node 1 to node 3 to node 2, then the result should be [1, 3, 2]. You must include the starting and ending nodes in the path.
+
+If two paths have the same distance, it does not matter which one you return (which won't happen in the tests).
+
+Example
+In the example road graph, if I asked you to find the path from node id 2 to node id 0, the function call would be
+
+navigate(roads, 2, 0) // Where roads is the example graph structure
+And you should return
+
+{
+  "distance": 5,
+  "path": [ 2, 4, 0 ]
+}
+Notes
+If two paths have the same distance, it doesn't matter which one you return (which won't happen in the tests).
+Make sure to include the starting and ending nodes in the path.
+The order of the path array does matter.
+Distance between 2 nodes is located in the metadata.distance property of the edge connecting them.
+*/
+
+function diceGame(scores) {
+
+}
+
+/*
+PvP Battle: Alice vs Bob
+Having gotten rather sick of always being paired together in sciency literature, Alice and Bob have decided to finally settle their differences with a magical duel. They'll each learn some skills and then battle it out.
+
+Your Goal
+Your job is to write the class Player which will handle all the combat mechanics.
+
+Properties
+Let's look at the Player class's properties first. You'll need:
+
+A private health variable hp. Make sure it's private!
+A private maxHealth variable maxHp. Again, make sure it's private.
+A private energy variable en. Again, make sure it's private.
+A private maxEnergy variable maxEn. You know the drill by now.
+Getters and setters for health and energy:
+These should be named hp and en, respectively.
+They should be "capped". That is, you cannot have less than 0 health or energy, and your health and/or energy cannot be greater than their respective "max" values.
+An armor value. This is public.
+A name. This is also public.
+A getter for health percent, called hpPerc. Please return this value rounded to two decimal places.
+Now that that's out of the way, let's look at our single method (other than the aforementioned getters and setters):
+
+learnSkill() Method
+Your class must implement a single method called learnSkill.
+
+Basics/Functionality
+This method takes two parameters: a skill name (e.g., "fireball"), and an object containing skill statistics (more on that below!).
+
+Most importantly, after adding a skill:
+
+alice.learnSkill("fireball",{ //stats (see below)})
+you should then be able to call that skill as you'd normally call a method on your Player instance, with the target passed as a parameter:
+
+alice.fireball(bob);
+where the name of the method is merely the skill name passed in. Keep in mind that some skills may have two-part names, so you'll need to factor that in when creating your method.
+
+In general, using the skill should return a string describing what happened, as well as changing the relevant numbers on both the target and "caster".
+
+stats Object
+Your stats object has the following properties:
+
+{
+    damage: the raw damage done (assuming 0 effective armor),
+    description: the description of the attack (for humans to read),
+    penetration: Armor penetration amount (see "Armor" below),
+    cost: Cost, in energy points,
+    heal: Optional heal value (some skills heal the caster on cast!)
+}
+Logic
+Armor: Your learnSkill method will start out by subtracting an armor penetration stat from the target's armor value to get an "effective armor" value. That is, if Alice attacks Bob with a skill with 5 armor penetration, and Bob's armor is 50, then Bob's effective armor for this attack is 50-5 = 45.
+
+Energy: If the skill costs more energy than the character currently has, return (player name) attempted to use (skill name), but didn't have enough energy!. Otherwise, subtract the energy cost from the character's energy, and continue.
+
+Damage: Damage here is pretty easy. Consider that the minimum armor value is 0, the maximum is 100, and each percent effective armor decreases damage by one percent. An example:
+
+Alice attacks Bob for 50 damage. Bob's effective armor rating is 25.
+Alice does 50*((100-25)/100) = 37.5 damage.
+Attack String: You'll need to return a string describing what happened. The first part of the returned string should describe the attack itself, and should look like this: (attacking player name) used skill (skill name), (skill description), against (target name), doing (calculated damage) damage!. For the damage calculation, please round your value to two decimal places.
+
+Next, if the skill healed, append (attacking player name) healed for (heal amount) health..
+
+Finally, if the target player died, append (target name) died.. Otherwise, append (target name is at (targ hpPerc) % health.
+
+Return this string, and don't forget to actually apply the damage/health changes!
+
+Example
+const alice = new Player("Alice", 110, 50, 10)
+const bob = new Player("Bob", 100, 60, 20)
+
+alice.learnSkill("fireball", {
+    damage: 23,
+    penetration: 1.2,
+    heal: 5,
+    cost: 15,
+    desc: "a firey magical attack"
+})
+
+console.log(alice.fireball(bob))
+// Alice used fireball, a firey magical attack, against Bob, doing
+// 18.68 damage! Alice healed for 5 health! Bob is at 81.32% health.
+
+bob.learnSkill("superbeam", {
+  damage:200,
+  penetration:50,
+  heal:50,
+  cost:75,
+  desc: "an overpowered attack, pls nerf"
+})
+
+console.log(bob.superbeam(alice))
+// Bob attempted to use superbeam, but didn't have enough energy!
+Notes
+In many fighting games, skills "pick" from a range of possible damage values. For the sake of simplicity (and testing!), assume that each skill does a specific, set damage number (factoring everything else in, of course).
+Don't worry about preventing a "dead" player from attacking.
+Pay very close attention to the exact format of the returned "attack" string! I'm comparing that directly with an expected result string, so even something like a missing space could ruin your answer.
+Your Player instances will be constructed as new Player(name,health,energy,armor)
+*/
+class Player {
+	#health;
+	#maxHealth;
+	#energy;
+	#maxEnergy;
+	
+	constructor(name = "Player", hp = 100, maxHp = 100, nrg = 100, maxNrg = 100, armor = 0) {
+		this.name = name;
+		this.#health = hp;
+		this.#maxHealth = maxHp;
+		this.#energy = nrg;
+		this.#maxEnergy = maxNrg;
+		this.armor = armor;
+	}
+	#changeHealth(value) {
+		if (value >= 0 && value <= this.#maxHealth) {
+			this.#health = value;
+		} else {
+			return "Invalid health change value"
+		}
+	}
+	#changeEnergy(value) {
+		if (value >= 0 && value <= this.#maxEnergy) {
+			this.#energy = value;
+		} else {
+			return "Invalid energy change value"
+		}
+	}
+	
+	exDmg(dmg) {
+		if (dmg < 0) {
+			return `Error: ${dmg} is negative value. Damage needs to be a positive value`
+		}
+		let result = this.#health - dmg;
+		if (result <= 0) {
+			return `${this.name} was hit for ${dmg} damage, and has died`
+		} else {
+			this.#changeHealth(result)
+			return `${this.name} was hit for ${dmg} damage, and now has ${this.#health} health`
+		}
+	}
+	get health() {
+		return this.#health
+	}
+	get maxEnergy() {
+		return this.#maxEnergy
+	}
+}
+
+let testy = new Player("Testy McTestFace", 70, 100, 50, 100, 5)
+// testy.changeHealth(2)
+// testy.health = 6;
+console.log(testy.health)
+console.log(testy.exDmg(4))
+// console.log(testy.maxEnergy)
+// console.log(testy.maxHealth)
+// console.log(testy.energy)
