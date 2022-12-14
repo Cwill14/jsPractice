@@ -11,7 +11,9 @@ function champions(teams) {
 	// if points tie, sort by goal diff
 	if(sorted[0].points === sorted[1].points) {
 		return sorted[0].goalDiff < sorted[1].goalDiff ? sorted[1].name : sorted[0].name
-	}
+	} else {
+    return sorted[0].name
+  }
 }
 
 log(champions([
